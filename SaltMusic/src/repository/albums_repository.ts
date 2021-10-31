@@ -15,6 +15,7 @@ export namespace AlbumsRespository {
 
             if (response?.status === 200) {
                 let albums = Convert.toTopAlbumsModel(response.data);
+                // console.log(albums);
                 return [albums, null];
             } else {
                 return [null, "An error occurred"];

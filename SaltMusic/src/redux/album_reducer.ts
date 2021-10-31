@@ -27,6 +27,7 @@ const AlbumsReducer = (state: AlbumsState = initialState, action: action) => {
             return {
                 ...state,
                 loading: 'idle',
+                albums: action.payload,
                 error: null,
             }
         }

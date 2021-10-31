@@ -2,9 +2,10 @@ import { View, StyleSheet, Image, Text, TouchableHighlight } from "react-native"
 import React from "react";
 import MdIcons from 'react-native-vector-icons/MaterialIcons';
 import { SharedElement } from "react-navigation-shared-element";
+import { Entry } from "../models/top_albums_model";
 
 type HomeCardProps = {
-    index: number,
+    entry: Entry,
     navigation: any,
 };
 
@@ -18,31 +19,31 @@ const HomeCard: React.FC<{ props: HomeCardProps }> = ({ props }) => {
                     'Detail',
                     {
                         props: {
-                            index: props.index,
+                            index: props.entry.artist,
                         }
                     },
                 );
             }}>
             <View style={[styles.container, {
                 flexDirection: "row",
-                height: 100,
+                height: 110,
             }]}>
                 <SharedElement
                     style={styles.musicAvatar}
-                    id={props.index.toString()}
+                    id={props.entry.image}
                 >
                     <Image
                         style={styles.musicAvatar}
                         source={{
-                            uri: 'https://picsum.photos/id/250/400/400',
+                            uri: props.entry.image,
                         }}
                     />
                 </SharedElement>
                 <View style={styles.musicDetails}>
                     <View style={styles.details}>
-                        <Text style={styles.artistName}>Artist Name</Text>
-                        <Text style={styles.albumName}>Album Name</Text>
-                        <Text style={styles.price}>$ price</Text>
+                        <Text style={styles.artistName}>{props.entry.artist}</Text>
+                        <Text style={styles.albumName}>{props.entry.name}</Text>
+                        <Text style={styles.price}>{props.entry.price}</Text>
                     </View>
                     <MdIcons style={styles.icon} name={"chevron-right"} size={35} />
                 </View>

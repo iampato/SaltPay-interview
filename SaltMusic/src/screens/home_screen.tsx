@@ -1,6 +1,7 @@
 
 import React, { useEffect } from "react";
 import { View, TextInput, StyleSheet, Text } from "react-native";
+import { FlatList } from 'react-native-gesture-handler';
 import {
     SafeAreaView,
     StatusBar,
@@ -42,10 +43,7 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
     useEffect(() => {
         // on init of the element
         // fetch top albums
-        setTimeout(() => {
-            dispatch(AlbumsThunk.getAlbums());
-        }, 2000)
-
+        dispatch(AlbumsThunk.getAlbums());
     }, []);
 
 
@@ -59,36 +57,36 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
             {
                 error == null ? loading === "loading" ?
                     <LoadingScreen />
-                    : <ScrollView>
-                        <View style={styles.searchBar}>
-                            <View style={styles.searchContainer}>
-                                <TextInput
-                                    style={styles.searchInput}
-                                    // onChangeText={onChangeNumber}
-                                    // value={number}
-                                    placeholder="Search Musician"
-                                />
+                    : <FlatList
+                        data={albums?.entry}
+                        ListHeaderComponent={
+                            <View style={styles.searchBar}>
+                                <View style={styles.searchContainer}>
+                                    <TextInput
+                                        style={styles.searchInput}
+                                        // onChangeText={onChangeNumber}
+                                        // value={number}
+                                        placeholder="Search Musician"
+                                    />
 
-                                <MdIcons name={"search"} color={'#a1a1a1'} size={25} />
+                                    <MdIcons name={"search"} color={'#a1a1a1'} size={25} />
+                                </View>
+                                <MdIcons style={styles.searchButton} name={"filter-list"} size={25} />
                             </View>
-                            <MdIcons style={styles.searchButton} name={"filter-list"} size={25} />
-                        </View>
-
-                        {
-                            list.map((item, index) => {
-                                return <HomeCard
-                                    key={index}
-                                    props={{
-                                        index: item,
-                                        navigation: props.navigation,
-                                    }}
-                                />
-                            })
                         }
-
-                    </ScrollView> : <ErrorScreen
-                    message={error}
-                />
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => {
+                            return <HomeCard
+                                props={{
+                                    entry: item,
+                                    navigation: props.navigation,
+                                }}
+                            />
+                        }}
+                    />
+                    : <ErrorScreen
+                        message={error}
+                    />
 
             }
 
@@ -126,3 +124,10 @@ const styles = StyleSheet.create({
     }
 });
 export default HomeScreen;
+
+
+{/* {
+                            list.map((item, index) => {
+                                return 
+                            })
+                        } */}

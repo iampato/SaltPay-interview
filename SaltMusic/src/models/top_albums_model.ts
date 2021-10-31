@@ -5,23 +5,12 @@
 //   const topAlbumsModel = Convert.toTopAlbumsModel(json);
 
 export interface TopAlbumsModel {
-    feed: Feed;
-}
-
-export interface Feed {
-    author:  Author;
-    entry:   Entry[];
-    updated: Icon;
-    rights:  Icon;
-    title:   Icon;
-    icon:    Icon;
-    link:    Link[];
-    id:      Icon;
+    entry: Entry[];
 }
 
 export interface Author {
     name: Icon;
-    uri:  Icon;
+    uri: Icon;
 }
 
 export interface Icon {
@@ -29,122 +18,85 @@ export interface Icon {
 }
 
 export interface Entry {
-    "im:name":        Icon;
-    "im:image":       IMImage[];
-    "im:itemCount":   Icon;
-    "im:price":       IMPrice;
-    "im:contentType": EntryIMContentType;
-    rights:           Icon;
-    title:            Icon;
-    link:             Link;
-    id:               ID;
-    "im:artist":      IMArtist;
-    category:         Category;
-    "im:releaseDate": IMReleaseDate;
+    name: string;
+    image: string;
+    itemCount: string;
+    price: string;
+    // contentType: EntryIMContentType;
+    rights: string;
+    title: string;
+    link: string;
+    artist: string;
+    // category: Category;
+    releaseDate: string;
 }
 
 export interface Category {
-    attributes: CategoryAttributes;
+    term: string;
+    scheme: string;
+    label: string;
 }
 
-export interface CategoryAttributes {
-    "im:id": string;
-    term:    string;
-    scheme:  string;
-    label:   string;
-}
 
-export interface ID {
-    label:      string;
-    attributes: IDAttributes;
-}
 
-export interface IDAttributes {
-    "im:id": string;
-}
-
-export interface IMArtist {
-    label:       string;
-    attributes?: IMArtistAttributes;
-}
-
-export interface IMArtistAttributes {
-    href: string;
-}
 
 export interface EntryIMContentType {
-    "im:contentType": IMContentTypeIMContentType;
-    attributes:       IMContentTypeAttributes;
+    contentType: string;
+    attributes: string;
 }
 
-export interface IMContentTypeAttributes {
-    term:  Label;
-    label: Label;
-}
 
-export enum Label {
-    Album = "Album",
-    Music = "Music",
-}
-
-export interface IMContentTypeIMContentType {
-    attributes: IMContentTypeAttributes;
-}
-
-export interface IMImage {
-    label:      string;
-    attributes: IMImageAttributes;
-}
-
-export interface IMImageAttributes {
-    height: string;
-}
-
-export interface IMPrice {
-    label:      string;
-    attributes: IMPriceAttributes;
-}
-
-export interface IMPriceAttributes {
-    amount:   string;
-    currency: Currency;
-}
-
-export enum Currency {
-    Usd = "USD",
-}
-
-export interface IMReleaseDate {
-    label:      Date;
-    attributes: Icon;
-}
-
-export interface Link {
-    attributes: LinkAttributes;
-}
-
-export interface LinkAttributes {
-    rel:   Rel;
-    type?: Type;
-    href:  string;
-}
-
-export enum Rel {
-    Alternate = "alternate",
-    Self = "self",
-}
-
-export enum Type {
-    TextHTML = "text/html",
-}
 
 // Converts JSON strings to/from your types
 export class Convert {
     public static toTopAlbumsModel(json: string): TopAlbumsModel {
-        return JSON.parse(JSON.stringify(json));
+        const obj = JSON.parse(JSON.stringify(json));
+        // console.log(obj);
+        let feeds: Entry[] = [];
+        //obj["feed"]["entry"].length
+        let entries = obj["feed"]["entry"]
+        entries.forEach((element: any) => {
+
+            let contentType: EntryIMContentType = {
+                contentType: element["im:contentType"]["attributes"]["term"],
+                attributes: element["im:contentType"]["attributes"]["label"]
+            }
+            let category: Category = {
+                term: element["category"]["attributes"]["term"],
+                scheme: element["category"]["attributes"]["scheme"],
+                label: element["category"]["attributes"]["label"]
+
+            }
+
+            let entry: Entry = {
+                name: element["im:name"]["label"],
+                image: element["im:image"][2]["label"],
+                itemCount: element["im:itemCount"]["label"],
+                price: element["im:price"]["label"],
+                // contentType: contentType,
+                rights: element["rights"]["label"],
+                title: element["title"]["label"],
+                link: element["link"]["attributes"]["href"],
+                artist: element["im:artist"]["label"],
+                // category: category,
+                releaseDate: element["im:releaseDate"]["attributes"]["label"]
+            }
+            // console.log(entry);
+            feeds.push(entry);
+        });
+
+        const res: TopAlbumsModel = {
+            // feed: feeds,
+            entry: feeds,
+        }
+        // console.log(res);
+        return res;
+        // return JSON.parse(JSON.stringify(json));
     }
 
     public static topAlbumsModelToJson(value: TopAlbumsModel): string {
         return JSON.stringify(value);
     }
 }
+
+
