@@ -65,6 +65,6 @@ export const FONTS = {
     body5: { fontFamily: "Roboto-Regular", fontSize: SIZES.body5, lineHeight: 22 },
 };
 
-const appTheme = { COLORS, SIZES, FONTS };
+const AppTheme = { COLORS, SIZES, FONTS };
 
-export default appTheme;
+export default AppTheme;
