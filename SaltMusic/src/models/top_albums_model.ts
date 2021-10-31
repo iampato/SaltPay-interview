@@ -141,7 +141,7 @@ export enum Type {
 // Converts JSON strings to/from your types
 export class Convert {
     public static toTopAlbumsModel(json: string): TopAlbumsModel {
-        return JSON.parse(json);
+        return JSON.parse(JSON.stringify(json));
     }
 
     public static topAlbumsModelToJson(value: TopAlbumsModel): string {
