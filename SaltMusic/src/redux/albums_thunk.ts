@@ -6,9 +6,8 @@ export namespace AlbumsThunk {
     export const getAlbums = () => async (dispatch: Dispatch<any>) => {
         try {
             dispatch({ type: "FETCH_ALBUMS_INIT" });
-
             const [albums, error] = await AlbumsRespository.getTopAlbums();
-            if (error === null) {
+            if (albums !== null) {
                 dispatch({ type: "FETCH_ALBUMS_SUCCESS", payload: albums });
             } else {
                 dispatch({ type: "FETCH_ALBUMS_FAILURE", payload: error });
@@ -20,3 +19,4 @@ export namespace AlbumsThunk {
     }
 
 }
+export default AlbumsThunk;

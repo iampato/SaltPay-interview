@@ -12,7 +12,7 @@ const initialState: AlbumsState = {
     error: null,
 }
 
-type action = { type: "FETCH_ALBUMS_INIT" } | { type: "FETCH_ALBUMS_SUCCESS", payload: any } | { type: "FETCH_ALBUMS_ERROR", payload: any };
+type action = { type: "FETCH_ALBUMS_INIT" } | { type: "FETCH_ALBUMS_SUCCESS", payload: any } | { type: "FETCH_ALBUMS_FAILURE", payload: any };
 
 
 const AlbumsReducer = (state: AlbumsState = initialState, action: action) => {
@@ -30,7 +30,7 @@ const AlbumsReducer = (state: AlbumsState = initialState, action: action) => {
                 error: null,
             }
         }
-        case "FETCH_ALBUMS_ERROR": {
+        case "FETCH_ALBUMS_FAILURE": {
             return {
                 ...state,
                 loading: 'idle',

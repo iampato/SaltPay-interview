@@ -1,6 +1,6 @@
 
-import React from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { View, TextInput, StyleSheet, Text } from "react-native";
 import {
     SafeAreaView,
     StatusBar,
@@ -13,6 +13,11 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import HomeCard from "../components/home_card";
 import MdIcons from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch, useSelector } from "react-redux";
+import { AlbumsState } from "../redux/album_reducer";
+import AlbumsThunk from "../redux/albums_thunk";
+import LoadingScreen from "../components/loading_screen";
+import ErrorScreen from "../components/error_screen";
 
 interface PropsType {
     navigation: any
@@ -24,7 +29,26 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
+
     const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    // redux state
+    const albums = useSelector<AlbumsState, AlbumsState["albums"]>((state) => state.albums);
+    const loading = useSelector<AlbumsState, AlbumsState["loading"]>((state) => state.loading);
+    const error = useSelector<AlbumsState, AlbumsState["error"]>((state) => state.error);
+    // create dispatch instance
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        // on init of the element
+        // fetch top albums
+        setTimeout(() => {
+            dispatch(AlbumsThunk.getAlbums());
+        }, 2000)
+
+    }, []);
+
+
     return (
         <SafeAreaView style={backgroundStyle}>
             <StatusBar
@@ -32,34 +56,43 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
                 translucent={true}
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             />
-            <ScrollView>
-                <View style={styles.searchBar}>
-                    <View style={styles.searchContainer}>
-                        <TextInput
-                            style={styles.searchInput}
-                            // onChangeText={onChangeNumber}
-                            // value={number}
-                            placeholder="Search Musician"
-                        />
+            {
+                error == null ? loading === "loading" ?
+                    <LoadingScreen />
+                    : <ScrollView>
+                        <View style={styles.searchBar}>
+                            <View style={styles.searchContainer}>
+                                <TextInput
+                                    style={styles.searchInput}
+                                    // onChangeText={onChangeNumber}
+                                    // value={number}
+                                    placeholder="Search Musician"
+                                />
 
-                        <MdIcons name={"search"} color={'#a1a1a1'} size={25} />
-                    </View>
-                    <MdIcons style={styles.searchButton} name={"filter-list"} size={25} />
-                </View>
+                                <MdIcons name={"search"} color={'#a1a1a1'} size={25} />
+                            </View>
+                            <MdIcons style={styles.searchButton} name={"filter-list"} size={25} />
+                        </View>
 
-                {
-                    list.map((item, index) => {
-                        return <HomeCard
-                            key={index}
-                            props={{
-                                index: item,
-                                navigation: props.navigation,
-                            }}
-                        />
-                    })
-                }
+                        {
+                            list.map((item, index) => {
+                                return <HomeCard
+                                    key={index}
+                                    props={{
+                                        index: item,
+                                        navigation: props.navigation,
+                                    }}
+                                />
+                            })
+                        }
 
-            </ScrollView>
+                    </ScrollView> : <ErrorScreen
+                    message={error}
+                />
+
+            }
+
+
 
         </SafeAreaView>
     );
