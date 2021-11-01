@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { AlbumsRespository } from "../repository/albums_repository";
+import { AlbumsRespository } from "../../repository/albums_repository";
 
 export namespace AlbumsThunk {
 
@@ -21,6 +21,5 @@ export namespace AlbumsThunk {
             dispatch({ type: "FETCH_ALBUMS_FAILURE", payload: "An error occurred" });
         }
     }
-
 }
 export default AlbumsThunk;
