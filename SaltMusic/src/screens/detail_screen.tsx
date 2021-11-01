@@ -6,10 +6,12 @@ import MdIcons from 'react-native-vector-icons/MaterialIcons';
 import type { SharedElementsComponentConfig } from "react-navigation-shared-element";
 import AppTheme from "../constants/theme";
 import LottieView from 'lottie-react-native';
-import { addAlbum } from "../models/albums_realm";
-
+import { addAlbum, deleteAlbum } from "../models/albums_realm";
+const loveAnimation = require("../assets/lottie/heart-burst.json")
+const deleteAnimation = require("../assets/lottie/button-delete.json")
 interface DetailsProps {
   entry: Entry,
+  type: number,
 }
 
 const IMAGE_HEIGHT = 400;
@@ -81,14 +83,22 @@ let DetailScreen = (navigationProps: any) => {
           onPress={(e) => {
             e.preventDefault();
             setviewLoaders(true);
-            addAlbum(props.entry);
+
+            if (props.type === 0) {
+              addAlbum(props.entry);
+            } else {
+              deleteAlbum(props.entry.id);
+            }
             setTimeout(() => {
               setviewLoaders(false);
 
-            }, 1600);
+            }, props.type == 0 ? 1600 : 3200);
           }}>
           <View style={styles.bottomLove}>
-            <MdIcons style={{ alignSelf: 'center' }} name={"favorite"} size={30} />
+            <MdIcons style={{
+              alignSelf: 'center'
+            }}
+              name={`${props.type == 0 ? "favorite" : "delete"}`} size={30} />
           </View>
         </TouchableHighlight>
         <TouchableHighlight
@@ -113,12 +123,12 @@ let DetailScreen = (navigationProps: any) => {
       {
         viewLoaders ?
           <LottieView
-            style={{
+            style={props.type == 0 ? {
               position: 'absolute',
               bottom: -200,
               left: -150,
-            }}
-            source={require('../assets/lottie/heart-burst.json')}
+            } : {}}
+            source={props.type == 0 ? loveAnimation : deleteAnimation}
             autoPlay
             loop
           />

@@ -18,6 +18,7 @@ const FavouriteCard: React.FC<{ props: FavouriteCardProps }> = ({ props }) => {
                     {
                         props: {
                             entry: props.entry,
+                            type: 1,
                         }
                     },
                 );

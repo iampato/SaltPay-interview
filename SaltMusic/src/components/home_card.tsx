@@ -21,6 +21,7 @@ const HomeCard: React.FC<{ props: HomeCardProps }> = ({ props }) => {
                     {
                         props: {
                             entry: props.entry,
+                            type: 0,
                         }
                     },
                 );
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     albumName: {
         marginTop: 4,
         marginBottom: 4,
-        fontFamily:AppTheme.COLORS.gray,
+        fontFamily: AppTheme.COLORS.gray,
     },
     price: {
         fontSize: 13,
