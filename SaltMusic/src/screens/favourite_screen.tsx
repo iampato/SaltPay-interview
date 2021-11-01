@@ -21,6 +21,7 @@ import FavouriteThunk from "../redux/favourite/favourite_thunk";
 import ErrorScreen from "../components/error_screen";
 import LoadingScreen from "../components/loading_screen";
 import FavouriteCard from "../components/favourite_card";
+import realm from "../models/albums_realm";
 
 interface PropsType {
     navigation: any
@@ -44,6 +45,12 @@ const FavouriteScreen: React.FC<{ props: PropsType }> = ({ props }) => {
         // on init of the element
         // fetch top albums
         dispatch(FavouriteThunk.getFavouriteAlbums());
+
+        realm.then((value) => {
+            value.addListener('change', () => {
+                dispatch(FavouriteThunk.getFavouriteAlbums());
+            });
+        }).catch((e) => console.log(e));
     }, []);
 
     return (
