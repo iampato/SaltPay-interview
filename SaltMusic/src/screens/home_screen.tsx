@@ -7,7 +7,7 @@ import {
     StatusBar,
     useColorScheme,
 } from 'react-native';
-import { ScrollView } from "react-native-gesture-handler";
+
 
 import {
     Colors,
@@ -15,10 +15,10 @@ import {
 import HomeCard from "../components/home_card";
 import MdIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from "react-redux";
-import { AlbumsState } from "../redux/album_reducer";
-import AlbumsThunk from "../redux/albums_thunk";
+import { AlbumsState } from "../redux/albums/album_reducer";
 import LoadingScreen from "../components/loading_screen";
 import ErrorScreen from "../components/error_screen";
+import AlbumsThunk from "../redux/albums/albums_thunk";
 
 interface PropsType {
     navigation: any
@@ -31,12 +31,11 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
 
-    const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
     // redux state
-    const albums = useSelector<AlbumsState, AlbumsState["albums"]>((state) => state.albums);
-    const loading = useSelector<AlbumsState, AlbumsState["loading"]>((state) => state.loading);
-    const error = useSelector<AlbumsState, AlbumsState["error"]>((state) => state.error);
+    const albumState = useSelector((state: any) => state);
+    const albums = albumState.albums.albums;
+    const loading = albumState.albums.loading;
+    const error = albumState.albums.error;
     // create dispatch instance
     const dispatch = useDispatch()
 
@@ -57,7 +56,7 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
             {
                 error == null ? loading === "loading" ?
                     <LoadingScreen />
-                    : <FlatList
+                    :  <FlatList
                         data={albums?.entry}
                         ListHeaderComponent={
                             <View style={styles.searchBar}>
@@ -123,11 +122,6 @@ const styles = StyleSheet.create({
         marginRight: 15,
     }
 });
+
+
 export default HomeScreen;
-
-
-{/* {
-                            list.map((item, index) => {
-                                return 
-                            })
-                        } */}

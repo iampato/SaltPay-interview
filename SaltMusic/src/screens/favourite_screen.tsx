@@ -15,25 +15,37 @@ import {
     Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import MdIcons from 'react-native-vector-icons/MaterialIcons';
+import { FlatList } from "react-native-gesture-handler";
+import { useDispatch, useSelector } from "react-redux";
+import FavouriteThunk from "../redux/favourite/favourite_thunk";
+import ErrorScreen from "../components/error_screen";
+import LoadingScreen from "../components/loading_screen";
+import FavouriteCard from "../components/favourite_card";
 
-function FavouriteScreen() {
-    const [dataSource, setDataSource] = useState<any[]>([]);
+interface PropsType {
+    navigation: any
+}
+const FavouriteScreen: React.FC<{ props: PropsType }> = ({ props }) => {
     const isDarkMode = useColorScheme() === 'dark';
 
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
 
+    // redux state
+    const favouriteState = useSelector((state: any) => state);
+    const albums = favouriteState.favourite.favourite;
+    const loading = favouriteState.favourite.loading;
+    const error = favouriteState.favourite.error;
+    // create dispatch instance
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        let items = Array.apply(null, Array(5)).map((v, i) => {
-            return {
-                id: i,
-                src: `https://picsum.photos/id/${i + 250}/400/400`
-            };
-        });
-        setDataSource(items);
+        // on init of the element
+        // fetch top albums
+        dispatch(FavouriteThunk.getFavouriteAlbums());
     }, []);
+
     return (
         <SafeAreaView style={backgroundStyle}>
             <StatusBar
@@ -41,51 +53,42 @@ function FavouriteScreen() {
                 translucent={true}
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             />
-            <ScrollView>
-                <View style={styles.searchBar}>
-                    <View style={styles.searchContainer}>
-                        <TextInput
-                            style={styles.searchInput}
-                            // onChangeText={onChangeNumber}
-                            // value={number}
-                            placeholder="Search favourite"
-                        />
+            {
+                error == null ? loading === "loading" ?
+                    <LoadingScreen />
+                    : albums?.entry.length > 1 ? <FlatList
+                        data={albums?.entry}
+                        ListHeaderComponent={
+                            <View style={styles.searchBar}>
+                                <View style={styles.searchContainer}>
+                                    <TextInput
+                                        style={styles.searchInput}
+                                        // onChangeText={onChangeNumber}
+                                        // value={number}
+                                        placeholder="Search Musician"
+                                    />
 
-                        <MdIcons name={"search"} color={'#a1a1a1'} size={25} />
-                    </View>
-                    <MdIcons style={styles.searchButton} name={"filter-list"} size={25} />
-                </View>
-
-
-                {
-                    dataSource.map((item, index) => {
-                        return <View
-                            key={item.id}
-                            style={styles.container}>
-                            <Image
-                                style={styles.imageThumbnail}
-                                source={{ uri: item.src, }}
-                            />
-                            <View
-                                style={styles.blur}
-                            >
-                                <View style={styles.card}>
-                                    <View style={styles.cardAvatar}>
-                                        <MdIcons name={"music-note"} size={28} />
-                                    </View>
-                                    <View style={styles.cardDetails}>
-                                        <Text style={styles.artistName}>Artist Name</Text>
-                                        <Text style={styles.albumName}>Album Name</Text>
-                                    </View>
-                                    <Text style={styles.price}>$ 13</Text>
+                                    <MdIcons name={"search"} color={'#a1a1a1'} size={25} />
                                 </View>
+                                <MdIcons style={styles.searchButton} name={"filter-list"} size={25} />
                             </View>
-                        </View>
-                    })
-                }
-
-            </ScrollView>
-        </SafeAreaView>
+                        }
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => {
+                            return <FavouriteCard
+                                props={{
+                                    entry: item,
+                                    navigation: props.navigation,
+                                }}
+                            />
+                        }}
+                    /> : <ErrorScreen
+                        message={"You dont have any saved albums"}
+                    /> : <ErrorScreen
+                    message={error ?? ""}
+                />
+            }
+        </SafeAreaView >
     );
 }
 const styles = StyleSheet.create({
