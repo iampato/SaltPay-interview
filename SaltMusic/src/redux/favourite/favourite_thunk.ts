@@ -1,25 +1,40 @@
 import { Dispatch } from "react";
-import { AlbumsRespository } from "../../repository/albums_repository";
+import { getAlbums } from "../../models/albums_realm";
+import { Convert } from "../../models/top_albums_model";
 
 export namespace FavouriteThunk {
 
     export const getFavouriteAlbums = () => async (dispatch: Dispatch<any>) => {
-        try {
+
+        return async (dispatch: Dispatch<any>, getState: any) => {
             dispatch({ type: "FETCH_ALBUMS" });
 
-            const [albums, error] = await AlbumsRespository.getRealmAlbums();
-            setTimeout(() => {
-                if (albums !== null) {
-                    dispatch({ type: "FETCH_ALBUMS_LOADED", payload: albums });
-                } else {
-                    dispatch({ type: "FETCH_ALBUMS_ERROR", payload: error });
-                }
-            }, 1500)
+            return getAlbums()
+                .then((response) => {
+                    if (response !== null) {
+                        let albumsString: string = JSON.stringify(response.toJSON());
+                        // console.log(albumsString);
+                        let albums = Convert.toTopAlbumsModel2(albumsString);
+                        setTimeout(() => {
+                            dispatch({
+                                type: "FETCH_ALBUMS_LOADED",
+                                payload: albums,
+                            });
+                        }, 1500)
+                    } else {
+                        dispatch({
+                            type: "FETCH_ALBUMS_ERROR",
+                            payload: "An error occurred"
+                        });
+                    }
+                }).catch((error) => {
+                    dispatch({
+                        type: "FETCH_ALBUMS_ERROR",
+                        payload: error,
+                    });
+                });
+        };
 
-        } catch (error) {
-            console.log(error);
-            dispatch({ type: "FETCH_ALBUMS_ERROR", payload: "An error occurred" });
-        }
     }
 
 }
