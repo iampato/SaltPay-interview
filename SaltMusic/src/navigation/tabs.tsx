@@ -41,7 +41,15 @@ function MyTabs(props: any) {
           }}
         />}
       />
-      <Tab.Screen name="Favourite" component={FavouriteScreen} />
+      <Tab.Screen
+        name="Favourite"
+        children={() => <FavouriteScreen
+          props={{
+            navigation: navigation
+          }}
+        />}
+      />
+
     </Tab.Navigator >
   );
 }
