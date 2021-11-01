@@ -20,7 +20,7 @@ const ErrorScreen: React.FC<{ message: string }> = ({ message }) => {
             }}
             source={require('../assets/lottie/38064-error-cone.json')}
             autoPlay
-            loop
+            loop={false}
         />
         <Text  style={AppTheme.FONTS.body4}>{message}</Text>
     </View>

@@ -18,6 +18,7 @@ export interface Icon {
 }
 
 export interface Entry {
+    id: string;
     name: string;
     image: string;
     itemCount: string;
@@ -69,6 +70,7 @@ export class Convert {
             }
 
             let entry: Entry = {
+                id: element["id"]["attributes"]["im:id"],
                 name: element["im:name"]["label"],
                 image: element["im:image"][2]["label"],
                 itemCount: element["im:itemCount"]["label"],
@@ -78,7 +80,6 @@ export class Convert {
                 title: element["title"]["label"],
                 link: element["link"]["attributes"]["href"],
                 artist: element["im:artist"]["label"],
-                // category: category,
                 releaseDate: element["im:releaseDate"]["attributes"]["label"]
             }
             // console.log(entry);
@@ -92,6 +93,34 @@ export class Convert {
         // console.log(res);
         return res;
         // return JSON.parse(JSON.stringify(json));
+    }
+    public static toTopAlbumsModel2(json: string): TopAlbumsModel {
+        const obj = JSON.parse(json);
+        // console.log("Object", obj);
+        let feeds: Entry[] = [];
+        if (obj !== "[]" && obj.length > 1) {
+            obj.forEach((element: any) => {
+
+                let entry: Entry = {
+                    id: element["id"],
+                    name: element["name"],
+                    image: element["image"],
+                    itemCount: element["itemCount"],
+                    price: element["price"],
+                    rights: element["rights"],
+                    title: element["title"],
+                    link: element["link"],
+                    artist: element["artist"],
+                    releaseDate: element["releaseDate"]
+                }
+                // console.log(entry);
+                feeds.push(entry);
+            });
+        }
+        const res: TopAlbumsModel = {
+            entry: feeds,
+        }
+        return res;
     }
 
     public static topAlbumsModelToJson(value: TopAlbumsModel): string {

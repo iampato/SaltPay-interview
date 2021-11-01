@@ -3,6 +3,7 @@ import React from "react";
 import MdIcons from 'react-native-vector-icons/MaterialIcons';
 import { SharedElement } from "react-navigation-shared-element";
 import { Entry } from "../models/top_albums_model";
+import AppTheme from "../constants/theme";
 
 type HomeCardProps = {
     entry: Entry,
@@ -19,7 +20,7 @@ const HomeCard: React.FC<{ props: HomeCardProps }> = ({ props }) => {
                     'Detail',
                     {
                         props: {
-                            index: props.entry.artist,
+                            entry: props.entry,
                         }
                     },
                 );
@@ -30,7 +31,7 @@ const HomeCard: React.FC<{ props: HomeCardProps }> = ({ props }) => {
             }]}>
                 <SharedElement
                     style={styles.musicAvatar}
-                    id={props.entry.image}
+                    id={`item.${props.entry.image}`}
                 >
                     <Image
                         style={styles.musicAvatar}
@@ -41,11 +42,11 @@ const HomeCard: React.FC<{ props: HomeCardProps }> = ({ props }) => {
                 </SharedElement>
                 <View style={styles.musicDetails}>
                     <View style={styles.details}>
-                        <Text style={styles.artistName}>{props.entry.artist}</Text>
+                        <Text style={AppTheme.FONTS.h3}>{props.entry.artist}</Text>
                         <Text style={styles.albumName}>{props.entry.name}</Text>
                         <Text style={styles.price}>{props.entry.price}</Text>
                     </View>
-                    <MdIcons style={styles.icon} name={"chevron-right"} size={35} />
+                    <MdIcons style={AppTheme.FONTS.body5} name={"chevron-right"} size={35} />
                 </View>
             </View>
         </TouchableHighlight>
@@ -88,6 +89,7 @@ const styles = StyleSheet.create({
     albumName: {
         marginTop: 4,
         marginBottom: 4,
+        fontFamily:AppTheme.COLORS.gray,
     },
     price: {
         fontSize: 13,
