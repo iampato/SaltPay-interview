@@ -41,6 +41,9 @@ const FavouriteScreen: React.FC<{ props: PropsType }> = ({ props }) => {
     // create dispatch instance
     const dispatch = useDispatch()
 
+    const [search, setSearch] = useState("");
+
+
     useEffect(() => {
         // on init of the element
         // fetch top albums
@@ -63,15 +66,22 @@ const FavouriteScreen: React.FC<{ props: PropsType }> = ({ props }) => {
             {
                 error == null ? loading === "loading" ?
                     <LoadingScreen />
-                    : albums?.entry.length > 1 ? <FlatList
+                    : <FlatList
                         data={albums?.entry}
                         ListHeaderComponent={
                             <View style={styles.searchBar}>
                                 <View style={styles.searchContainer}>
                                     <TextInput
                                         style={styles.searchInput}
-                                        // onChangeText={onChangeNumber}
-                                        // value={number}
+                                        onChangeText={(e) => {
+                                            setSearch(e);
+                                        }}
+                                        onSubmitEditing={
+                                            () => {
+                                                dispatch(FavouriteThunk.searchAlbums(search));
+                                            }
+                                        }
+                                        returnKeyType={'done'}
                                         placeholder="Search Musician"
                                     />
 
@@ -80,6 +90,14 @@ const FavouriteScreen: React.FC<{ props: PropsType }> = ({ props }) => {
                                 <MdIcons style={styles.searchButton} name={"filter-list"} size={25} />
                             </View>
                         }
+                        ListEmptyComponent={() => {
+                            return (
+                                <ErrorScreen
+                                    title={"No Favourite Albums"}
+                                    message={"You dont have any saved albums\n try saving then come back"}
+                                />
+                            )
+                        }}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) => {
                             return <FavouriteCard
@@ -90,12 +108,9 @@ const FavouriteScreen: React.FC<{ props: PropsType }> = ({ props }) => {
                             />
                         }}
                     /> : <ErrorScreen
-                        title={"No Favourite Albums"}
-                        message={"You dont have any saved albums\n try saving then come back"}
-                    /> : <ErrorScreen
-                    title={"ErrorScreen"}
-                    message={error ?? ""}
-                />
+                        title={"ErrorScreen"}
+                        message={error ?? ""}
+                    />
             }
         </SafeAreaView >
     );

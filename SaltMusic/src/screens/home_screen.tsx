@@ -47,7 +47,7 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
         dispatch(AlbumsThunk.getAlbums());
     }, []);
 
-    console.log(albumState);
+    // console.log(albumState);
     return (
         <SafeAreaView style={backgroundStyle}>
             <StatusBar

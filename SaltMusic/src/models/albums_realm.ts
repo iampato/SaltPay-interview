@@ -24,7 +24,7 @@ const realm = Realm.open({
 export async function getAlbums() {
     let real = await realm;
     let objects =  real.objects('Album');
-    console.log(objects);
+    // console.log(objects);
     return objects;
 }
 export async function getAlbum(id: string) {

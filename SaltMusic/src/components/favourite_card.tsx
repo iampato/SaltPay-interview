@@ -37,8 +37,8 @@ const FavouriteCard: React.FC<{ props: FavouriteCardProps }> = ({ props }) => {
                             <MdIcons name={"music-note"} size={28} />
                         </View>
                         <View style={styles.cardDetails}>
-                            <Text style={styles.artistName}>{props.entry.artist}</Text>
-                            <Text style={styles.albumName}>{props.entry.name}</Text>
+                            <Text numberOfLines={1} style={styles.artistName}>{props.entry.artist}</Text>
+                            <Text numberOfLines={1} style={styles.albumName}>{props.entry.name}</Text>
                         </View>
                         <Text style={styles.price}>{props.entry.price}</Text>
                     </View>
