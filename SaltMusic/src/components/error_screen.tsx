@@ -3,7 +3,7 @@ import LottieView from 'lottie-react-native';
 import { Text, View } from "react-native";
 import AppTheme from "../constants/theme";
 
-const ErrorScreen: React.FC<{ message: string }> = ({ message }) => {
+const ErrorScreen: React.FC<{ message: string, title: string }> = ({ message, title }) => {
     return <View style={{
         // flex: 1,
         height: '100%',
@@ -13,7 +13,7 @@ const ErrorScreen: React.FC<{ message: string }> = ({ message }) => {
     }}>
         <Text
             style={AppTheme.FONTS.h2}
-        >ErrorScreen</Text>
+        >{title}</Text>
         <LottieView
             style={{
                 height: 300,
@@ -22,7 +22,12 @@ const ErrorScreen: React.FC<{ message: string }> = ({ message }) => {
             autoPlay
             loop={false}
         />
-        <Text  style={AppTheme.FONTS.body4}>{message}</Text>
+        <Text style={{
+            fontFamily: "Roboto-Regular",
+            fontSize: AppTheme.SIZES.body4,
+            lineHeight: 22,
+            textAlign: "center"
+        }}>{message}</Text>
     </View>
 }
 

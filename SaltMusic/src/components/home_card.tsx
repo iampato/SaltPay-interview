@@ -43,11 +43,11 @@ const HomeCard: React.FC<{ props: HomeCardProps }> = ({ props }) => {
                 </SharedElement>
                 <View style={styles.musicDetails}>
                     <View style={styles.details}>
-                        <Text style={AppTheme.FONTS.h3}>{props.entry.artist}</Text>
-                        <Text style={styles.albumName}>{props.entry.name}</Text>
+                        <Text numberOfLines={1} style={AppTheme.FONTS.h3}>{props.entry.artist}</Text>
+                        <Text numberOfLines={1} style={styles.albumName}>{props.entry.name}</Text>
                         <Text style={styles.price}>{props.entry.price}</Text>
                     </View>
-                    <MdIcons style={AppTheme.FONTS.body5} name={"chevron-right"} size={35} />
+                    <MdIcons style={styles.icon} name={"chevron-right"} size={35} />
                 </View>
             </View>
         </TouchableHighlight>

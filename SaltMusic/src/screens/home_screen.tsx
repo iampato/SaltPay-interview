@@ -1,6 +1,6 @@
 
-import React, { useEffect } from "react";
-import { View, TextInput, StyleSheet, Text } from "react-native";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { View, TextInput, StyleSheet, Text, TouchableHighlight } from "react-native";
 import { FlatList } from 'react-native-gesture-handler';
 import {
     SafeAreaView,
@@ -30,6 +30,8 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
+    // local state
+    const [search, setSearch] = useState("");
 
     // redux state
     const albumState = useSelector((state: any) => state);
@@ -45,7 +47,7 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
         dispatch(AlbumsThunk.getAlbums());
     }, []);
 
-
+    console.log(albumState);
     return (
         <SafeAreaView style={backgroundStyle}>
             <StatusBar
@@ -56,23 +58,46 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
             {
                 error == null ? loading === "loading" ?
                     <LoadingScreen />
-                    :  <FlatList
+                    : <FlatList
                         data={albums?.entry}
                         ListHeaderComponent={
                             <View style={styles.searchBar}>
                                 <View style={styles.searchContainer}>
                                     <TextInput
                                         style={styles.searchInput}
-                                        // onChangeText={onChangeNumber}
+                                        onChangeText={(e) => {
+                                            setSearch(e);
+                                        }}
+                                        onSubmitEditing={
+                                            () => {
+                                                dispatch(AlbumsThunk.searchAlbums(search));
+                                            }
+                                        }
+                                        returnKeyType={'done'}
                                         // value={number}
-                                        placeholder="Search Musician"
+                                        placeholder="Search Album"
                                     />
 
                                     <MdIcons name={"search"} color={'#a1a1a1'} size={25} />
+
                                 </View>
-                                <MdIcons style={styles.searchButton} name={"filter-list"} size={25} />
+                                <TouchableHighlight
+                                    onPress={(e) => {
+                                        e.preventDefault();
+                                        dispatch(AlbumsThunk.getAlbums());
+                                    }}>
+                                    <MdIcons style={styles.searchButton} name={"close"} size={25} />
+                                </TouchableHighlight>
                             </View>
                         }
+                        ListEmptyComponent={() => {
+                            return (
+                                <ErrorScreen
+                                    title={"Search albums"}
+                                    message={"No Albums Found"}
+                                />
+                            )
+                        }}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) => {
                             return <HomeCard
@@ -84,6 +109,7 @@ const HomeScreen: React.FC<{ props: PropsType }> = ({ props }) => {
                         }}
                     />
                     : <ErrorScreen
+                        title={"ErrorScreen"}
                         message={error}
                     />
 

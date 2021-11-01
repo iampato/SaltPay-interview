@@ -90,8 +90,10 @@ const FavouriteScreen: React.FC<{ props: PropsType }> = ({ props }) => {
                             />
                         }}
                     /> : <ErrorScreen
-                        message={"You dont have any saved albums"}
+                        title={"No Favourite Albums"}
+                        message={"You dont have any saved albums\n try saving then come back"}
                     /> : <ErrorScreen
+                    title={"ErrorScreen"}
                     message={error ?? ""}
                 />
             }

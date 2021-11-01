@@ -1,7 +1,6 @@
 import { Dispatch } from "react";
-import { AlbumsRespository } from "../../repository/albums_repository";
 import axios from "axios";
-import { Convert } from "../../models/top_albums_model";
+import { Convert, Entry } from "../../models/top_albums_model";
 
 export namespace AlbumsThunk {
     const instance = axios.create({
@@ -38,6 +37,33 @@ export namespace AlbumsThunk {
                 });
         };
     };
+    export const searchAlbums = (terms: string) => {
+        return async (dispatch: Dispatch<any>, getState: any) => {
+            dispatch({ type: "FETCH_ALBUMS_INIT" });
+            let data: Entry[] = getState().albums.albums["entry"];
+            let newData = search(data, terms);
+            // console.log(newData);
+            setTimeout(() => {
+                dispatch({
+                    type: "FETCH_ALBUMS_SUCCESS",
+                    payload: { "entry": newData },
+                });
+
+            }, 100)
+
+        };
+    };
+    function search(list: Entry[], terms: string): Entry[] {
+        return list.filter((element) => {
+            if (element.name != null && element.name.toLowerCase() === terms.toLowerCase()) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+
 
     // export const getAlbums = () => async (dispatch: Dispatch<any>) => {
     //     try {
