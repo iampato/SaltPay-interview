@@ -17,7 +17,16 @@ const AppNavigation = () => {
                 initialRouteName="Tabs"
             >
                 <Stack.Screen name="Tabs" component={MyTabs} />
-                <Stack.Screen name="Detail" component={DetailScreen} />
+                <Stack.Screen
+                    name="Detail"
+                    component={DetailScreen}
+                    sharedElements={(route) => {
+                        const item = route.params.props;
+                        return [
+                            { id: `item.${item.image}`, animation: 'fade' },
+                        ];
+                    }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

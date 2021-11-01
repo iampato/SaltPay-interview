@@ -1,7 +1,7 @@
 import React from "react";
 import AppNavigation from "./src/navigation/stack";
 import { Provider } from "react-redux";
-import store from "./src/redux/album_store";
+import store from "./src/redux/store";
 
 const App = () => {
   return (
