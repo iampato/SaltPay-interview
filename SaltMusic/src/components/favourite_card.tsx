@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import MdIcons from 'react-native-vector-icons/MaterialIcons';
 import { Entry } from "../models/top_albums_model";
 
@@ -10,27 +10,40 @@ type FavouriteCardProps = {
 
 const FavouriteCard: React.FC<{ props: FavouriteCardProps }> = ({ props }) => {
     return (
-        <View
-            style={styles.container}>
-            <Image
-                style={styles.imageThumbnail}
-                source={{ uri: props.entry.image, }}
-            />
+        <TouchableHighlight
+            onPress={(e) => {
+                e.preventDefault();
+                props.navigation.navigate(
+                    'Detail',
+                    {
+                        props: {
+                            entry: props.entry,
+                        }
+                    },
+                );
+            }}>
             <View
-                style={styles.blur}
-            >
-                <View style={styles.card}>
-                    <View style={styles.cardAvatar}>
-                        <MdIcons name={"music-note"} size={28} />
+                style={styles.container}>
+                <Image
+                    style={styles.imageThumbnail}
+                    source={{ uri: props.entry.image, }}
+                />
+                <View
+                    style={styles.blur}
+                >
+                    <View style={styles.card}>
+                        <View style={styles.cardAvatar}>
+                            <MdIcons name={"music-note"} size={28} />
+                        </View>
+                        <View style={styles.cardDetails}>
+                            <Text style={styles.artistName}>{props.entry.artist}</Text>
+                            <Text style={styles.albumName}>{props.entry.name}</Text>
+                        </View>
+                        <Text style={styles.price}>{props.entry.price}</Text>
                     </View>
-                    <View style={styles.cardDetails}>
-                        <Text style={styles.artistName}>Artist Name</Text>
-                        <Text style={styles.albumName}>Album Name</Text>
-                    </View>
-                    <Text style={styles.price}>$ 13</Text>
                 </View>
             </View>
-        </View>
+        </TouchableHighlight>
     );
 }
 const styles = StyleSheet.create({
@@ -40,7 +53,8 @@ const styles = StyleSheet.create({
         height: 170,
         overflow: "hidden",
         backgroundColor: '#fff',
-        marginBottom: 10,
+        marginBottom: 5,
+        marginTop: 5,
         marginLeft: 14,
         marginRight: 14,
         borderRadius: 9,
