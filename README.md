@@ -29,7 +29,7 @@ In a fictional world, SaltPay is branching into the music business and we need a
     * [Axios](https://axios.com) as my http client to interact with the iTunes API
     
 * State-management
-    * [React-Redux] - The library lets your React components read data from a Redux store, and dispatch actions to the store to update state.
+    * [React-Redux](https://react-redux.js.org) - The library lets your React components read data from a Redux store, and dispatch actions to the store to update state.
 
 * Navigation
     * 
