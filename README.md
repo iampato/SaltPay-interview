@@ -51,6 +51,8 @@ To run the project, clone it then navigate to the folder and `cd` into `SaltMusi
 I added some screenshots in the `screenshots` folder, in the root directory of the project. Added some GIFs to also show end to end test on the app
 
 
-<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> 
-<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/>
-<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> 
+<img src="https://github.com/iampato/SaltPay/blob/master/screenshots/gif.gif" width="250"/> 
+<img src="https://github.com/iampato/SaltPay/blob/master/screenshots/home.png" width="250"/>
+<img src="https://github.com/iampato/SaltPay/blob/master/screenshots/detail.png" width="250"/> 
+<img src="https://github.com/iampato/SaltPay/blob/master/screenshots/favourite.png" width="250"/>
+<img src="https://github.com/iampato/SaltPay/blob/master/screenshots/2.png" width="250"/> 
