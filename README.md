@@ -30,8 +30,13 @@ In a fictional world, SaltPay is branching into the music business and we need a
     
 * State-management
     * [React-Redux](https://react-redux.js.org) - The library lets your React components read data from a Redux store, and dispatch actions to the store to update state.
+    * [Redux-thunk]() - for async redux actions
 
-* Navigation
-    * 
+* UI
+    * [Lottie](https://www.npmjs.com/package/react-lottie) - for loader animations 
+    * [react-navigation-shared-element](https://github.com/IjzerenHein/react-navigation-shared-element) - for beautiful navigation transitions
+
 * Test
-    * jtest -
+    * [jtest](https://jestjs.io/docs/tutorial-react)
+    * [Redux mock store](https://github.com/reduxjs/redux-mock-store) - A mock store for testing Redux async action creators and middleware.
+
