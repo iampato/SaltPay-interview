@@ -9,10 +9,13 @@ import LottieView from 'lottie-react-native';
 import { addAlbum, deleteAlbum } from "../models/albums_realm";
 const loveAnimation = require("../assets/lottie/heart-burst.json")
 const deleteAnimation = require("../assets/lottie/button-delete.json")
+
 interface DetailsProps {
   entry: Entry,
   type: number,
 }
+// 0 -> home screen
+// 1 -> detail screen
 
 const IMAGE_HEIGHT = 400;
 let DetailScreen = (navigationProps: any) => {
