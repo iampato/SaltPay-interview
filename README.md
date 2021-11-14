@@ -5,9 +5,6 @@ A react native mobile application that shows popular music from iTunes API for t
 ### Objective
 
 SaltPay is branching into the music business and needs a new React Native app.
-
-### Brief
-
 In a fictional world, SaltPay is branching into the music business and we need a new app. This React Native app needs to display the top 100 songs based on the iTunes API.
 
 
@@ -19,6 +16,12 @@ In a fictional world, SaltPay is branching into the music business and we need a
 - A good user experience
 - Add interaction to the App: open a details page when clicking an album; go to the Album link
 - Allow the top 100 to be searchable
+
+## Result
+I added some screenshots in the `screenshots` folder, in the root directory of the project. Added some GIFs to also show end to end test on the app
+
+--- | --- | ---
+<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="280"/> | <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_dark.png" width="280"/> | <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather.gif" width="280"/>
 
 ## Technologies used
 * Technologies used
