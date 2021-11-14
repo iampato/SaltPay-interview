@@ -17,13 +17,6 @@ In a fictional world, SaltPay is branching into the music business and we need a
 - Add interaction to the App: open a details page when clicking an album; go to the Album link
 - Allow the top 100 to be searchable
 
-## Result
-I added some screenshots in the `screenshots` folder, in the root directory of the project. Added some GIFs to also show end to end test on the app
-
-
-<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> 
-<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/>
-<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> 
 
 ## Technologies used
 * Technologies used
@@ -45,3 +38,16 @@ I added some screenshots in the `screenshots` folder, in the root directory of t
     * [jtest](https://jestjs.io/docs/tutorial-react)
     * [Redux mock store](https://github.com/reduxjs/redux-mock-store) - A mock store for testing Redux async action creators and middleware.
 
+## Get started
+To run the project, clone it then navigate to the folder and `cd` into `SaltMusic` while inside the following
+* Install dependecies: `npm install --save`
+* Run metro: `make metro-start` (this uses a `Makefile` present to the root dir to run `npx react-native start` )
+* Run android: `make run-android` (uses the Makefile to run the actual command)
+
+## Result
+I added some screenshots in the `screenshots` folder, in the root directory of the project. Added some GIFs to also show end to end test on the app
+
+
+<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> 
+<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/>
+<img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="250"/> 
