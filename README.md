@@ -20,7 +20,7 @@ In a fictional world, SaltPay is branching into the music business and we need a
 ## Result
 I added some screenshots in the `screenshots` folder, in the root directory of the project. Added some GIFs to also show end to end test on the app
 
- |  | 
+Light | Dark | GIF
 --- | --- | ---
 <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_light.png" width="280"/> | <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather_dark.png" width="280"/> | <img src="https://github.com/jumaallan/apollo-agriculture/blob/master/screenshots/weather.gif" width="280"/>
 
