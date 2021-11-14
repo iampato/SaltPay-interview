@@ -26,6 +26,9 @@ In a fictional world, SaltPay is branching into the music business and we need a
 * Networking
     * [Axios](https://axios.com) as my http client to interact with the iTunes API
     
+* Local Cache
+    * [Realm](https://realm.io/) - Realm's mobile database is an open source, developer-friendly alternative to CoreData and SQLite
+
 * State-management
     * [React-Redux](https://react-redux.js.org) - The library lets your React components read data from a Redux store, and dispatch actions to the store to update state.
     * [Redux-thunk]() - for async redux actions
