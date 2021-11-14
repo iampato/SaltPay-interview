@@ -22,14 +22,14 @@ In a fictional world, SaltPay is branching into the music business and we need a
 
 ## Technologies used
 * Technologies used
-    * [Typescript](https://kotlinlang.org/)
-    * [React-Native](https://developer.android.com/jetpack/compose) Because **COMPOSE IS FINALLY STABLE**
+    * [Typescript](https://www.typescriptlang.org//) For type safe incontractly to using Javasript
+    * [React-Native](https://reactnative.dev) Learn once, write anywhere
 
 * Networking
-    * [Axios] () as my http client to interact with the iTunes API
+    * [Axios](https://axios.com) as my http client to interact with the iTunes API
     
 * State-management
-    * React-Redux - The library lets your React components read data from a Redux store, and dispatch actions to the store to update state.
+    * [React-Redux] - The library lets your React components read data from a Redux store, and dispatch actions to the store to update state.
 
 * Navigation
     * 
