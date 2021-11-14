@@ -47,7 +47,7 @@ To run the project, clone it then navigate to the folder and `cd` into `SaltMusi
 * Run metro: `make metro-start` (this uses a `Makefile` present to the root dir to run `npx react-native start` )
 * Run android: `make run-android` (uses the Makefile to run the actual command)
 
-## Result
+## Screenshots
 I added some screenshots in the `screenshots` folder, in the root directory of the project. Added some GIFs to also show end to end test on the app
 
 |   |   |
